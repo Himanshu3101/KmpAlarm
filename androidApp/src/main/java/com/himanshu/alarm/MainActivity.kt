@@ -20,17 +20,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             com.himanshu.alarm.ui.App()
         }
-
-
-        /*{
-            KmpAlarmTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }*/
     }
 }
 

@@ -1,0 +1,9 @@
+CREATE TABLE sound (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    uri TEXT,                                       -- user-imported media or content://
+    asset_key TEXT,                                 -- bundled asset name if any
+    is_extra_loud INTEGER NOT NULL DEFAULT 0
+);
+
+-- Seed can be done in app code if needed (insert extra-loud presets).
