@@ -15,5 +15,18 @@ PRIMARY KEY (session_id, ts)
 
 CREATE INDEX sleep_event_session_idx ON sleep_event(session_id);
 
-
 --Sleep Tracking: start/end sessions; optional timeline sleep_event lets you plot phases or movement.
+
+-- ↓↓↓ You add queries just after the CREATE TABLE(s)
+
+startSession:
+INSERT INTO sleep_session(started_at, alarm_id) VALUES (?, ?);
+
+lastInsertId:
+SELECT last_insert_rowid();
+
+endSession:
+UPDATE sleep_session SET ended_at = ? WHERE id = ?;
+
+insertSleepEvent:
+INSERT INTO sleep_event(session_id, ts, kind) VALUES (?, ?, ?);

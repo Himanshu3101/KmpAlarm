@@ -1,0 +1,25 @@
+CREATE TABLE snore_segment (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    session_id INTEGER NOT NULL REFERENCES sleep_session(id) ON DELETE CASCADE,
+    started_at INTEGER NOT NULL,                                -- epoch seconds
+    ended_at INTEGER NOT NULL,
+    rms REAL NOT NULL,                                          -- loudness metric
+    file_path TEXT NOT NULL                                     -- per-segment audio file
+);
+
+CREATE INDEX snore_session_idx ON snore_segment(session_id);
+CREATE INDEX snore_started_idx ON snore_segment(started_at);
+
+
+--Access all snoring recordings: segments are individually stored with file paths, easy to list & play.
+
+-- ↓↓↓ You add queries just after the CREATE TABLE(s)
+
+insertSnoreSegment:
+INSERT INTO snore_segment(session_id, started_at, ended_at, rms, file_path) VALUES (?, ?, ?, ?, ?);
+
+segmentsForSession:
+SELECT * FROM snore_segment WHERE session_id = ? ORDER BY started_at;
+
+deleteSnoreSegment:
+DELETE FROM snore_segment WHERE id = ?;

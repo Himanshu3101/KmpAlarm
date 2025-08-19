@@ -14,3 +14,17 @@ CREATE TABLE alarm_mission(
 
 -- Multiple Missions: alarm_mission supports 1-N missions per alarm.
 -- Prevent Turn-Off: if alarm.prevent_turn_off=1, we require completion of linked missions before stopping/dismissing.
+
+-- ↓↓↓ You add queries just after the CREATE TABLE(s)
+
+getMissionsForAlarm:
+SELECT m.*, am.required
+FROM mission m
+JOIN alarm_mission am ON am.mission_id = m.id
+WHERE am.alarm_id = ?;
+
+linkMissionToAlarm:
+INSERT OR REPLACE INTO alarm_mission(alarm_id, mission_id, required) VALUES (?,?,?);
+
+unLinkMissionFromAlarm:
+DELETE FROM alarm_mission WHERE alarm_id = ? AND mission_id = ?;

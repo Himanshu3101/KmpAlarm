@@ -1,0 +1,24 @@
+CREATE TABLE morning_report (
+    session_id INTEGER NOT NULL PRIMARY KEY
+        REFERENCES sleep_session(id) ON DELETE CASCADE,
+        total_sleep_min INTEGER NOT NULL,
+        snore_minutes INTEGER NOT NULL,
+        wake_count INTEGER NOT NULL,
+        mission_completed INTEGER NOT NULL,                         -- 0/1
+        subjective_score INTEGER                                    -- 1..5 nullable
+);
+
+--Morning Summary Reports: precomputed aggregates for fast load at app start; you can rebuild if raw data changes.
+
+-- ↓↓↓ You add queries just after the CREATE TABLE(s)
+
+upsertMorningReport:
+INSERT OR REPLACE INTO morning_report(session_id, total_sleep_min, snore_minutes, wake_count, mission_completed, subjective_score)
+VALUES (?,?,?,?,?,?);
+
+getLatestReport:
+SELECT mr.*,ss.started_at,ss.ended_at
+FROM morning_report mr
+JOIN sleep_session ss ON ss.id = mr.session_id
+ORDER BY ss.started_at DESC
+LIMIT ?;
