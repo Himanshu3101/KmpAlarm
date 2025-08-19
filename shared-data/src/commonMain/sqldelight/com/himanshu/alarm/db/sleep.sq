@@ -1,0 +1,19 @@
+CREATE TABLE sleep_session (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    started_at INTEGER NOT NULL,                            --epoch second(Instant)
+    ended_at INTEGER,                                        -- null until end
+    alarm_id INTEGER REFERENCES alarm(id) ON DELETE SET NULL
+);
+
+-- Fine-grained timeline (optional but useful for analytics)
+CREATE TABLE sleep_event(
+session_id INTEGER NOT NULL REFERENCES sleep_session(id) ON DELETE CASCADE,
+ts INTEGER NOT NULL,                                          --epoch seconds
+kind TEXT NOT NULL CHECK(kind IN('SLEEP', 'WAKE', 'MOVE', 'LIGHT', 'DEEM', 'REM' )),
+PRIMARY KEY (session_id, ts)
+);
+
+CREATE INDEX sleep_event_session_idx ON sleep_event(session_id);
+
+
+--Sleep Tracking: start/end sessions; optional timeline sleep_event lets you plot phases or movement.

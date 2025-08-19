@@ -1,0 +1,16 @@
+CREATE TABLE mission (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    type TEXT NOT NULL CHECK(type IN('MATH', 'QR', 'SHAKE', 'STEPS', 'MEMORY', 'TYPING')),
+    difficulty TEXT NOT NULL CHECK(difficulty IN('EASY', 'MEDIUM', 'HARD')),
+    config_json TEXT NOT NULL DEFAULT'{}'
+);
+
+CREATE TABLE alarm_mission(
+    alarm_id INTEGER NOT NULL REFERENCES alarm(id) ON DELETE CASCADE,
+    mission_id INTEGER NOT NULL REFERENCES mission(id) ON DELETE CASCADE,
+    required INTEGER NOT NULL DEFAULT 1,                -- 0/1
+    PRIMARY KEY (alarm_id, mission_id)
+);
+
+-- Multiple Missions: alarm_mission supports 1-N missions per alarm.
+-- Prevent Turn-Off: if alarm.prevent_turn_off=1, we require completion of linked missions before stopping/dismissing.
