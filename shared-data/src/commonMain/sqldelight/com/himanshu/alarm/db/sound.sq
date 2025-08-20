@@ -7,3 +7,26 @@ CREATE TABLE sound (
 );
 
 -- Seed can be done in app code if needed (insert extra-loud presets).
+
+
+--selectAll:
+--SELECT * FROM sound ORDER BY is_extra_loud DESC, name;
+
+selectAll:
+SELECT * FROM sound ORDER BY is_extra_loud DESC, name;
+-- SELECT * FROM sound;
+
+selectById:
+SELECT * FROM sound WHERE id = ?;
+
+insert:
+INSERT INTO sound(name, uri, asset_key, is_extra_loud) VALUES (?, ?, ?, ?);
+
+update:
+UPDATE sound SET name=?, uri=?, asset_key=?, is_extra_loud=? WHERE id=?;
+
+delete:
+DELETE FROM sound WHERE id=?;
+
+selectLastInsertId:
+SELECT last_insert_rowid();

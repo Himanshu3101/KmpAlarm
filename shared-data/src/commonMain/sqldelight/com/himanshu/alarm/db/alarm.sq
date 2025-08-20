@@ -22,18 +22,37 @@ CREATE INDEX alarm_time_idx ON alarm(time_h, time_m);       --Why store time_h/t
 -- ↓↓↓ You add queries just after the CREATE TABLE(s)
 
 getAllAlarms:
-SELECT * FROM alarm ORDER BY enabled DESC, time_h, time_m;
+SELECT id, label, time_h, time_m, next_trigger, enabled, repeat_mask, allow_snooze, snooze_minutes,
+       volume, gradual_increase_sec, sound_id, prevent_turn_off, wake_up_check
+FROM alarm
+ORDER BY enabled DESC, time_h, time_m;
+-- SELECT * FROM alarm ORDER BY enabled DESC, time_h, time_m;
 
 getAlarmById:
-SELECT * FROM alarm WHERE id = ?;
+SELECT id, label, time_h, time_m, next_trigger, enabled, repeat_mask, allow_snooze, snooze_minutes,
+       volume, gradual_increase_sec, sound_id, prevent_turn_off, wake_up_check
+FROM alarm
+WHERE id = ?;
+--SELECT * FROM alarm WHERE id = ?;
 
 insertAlarm:
-INSERT INTO alarm(label, time_h, time_m, next_trigger, enabled, repeat_mask, allow_snooze, snooze_minutes,
-                  volume, gradual_increase_sec, sound_id, prevent_turn_off, wake_up_check)
-                  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
+INSERT INTO alarm(
+  label, time_h, time_m, next_trigger, enabled, repeat_mask, allow_snooze, snooze_minutes,
+  volume, gradual_increase_sec, sound_id, prevent_turn_off, wake_up_check
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateAlarmFull:
+UPDATE alarm SET
+  label = ?, time_h = ?, time_m = ?, next_trigger = ?, enabled = ?, repeat_mask = ?,
+  allow_snooze = ?, snooze_minutes = ?, volume = ?, gradual_increase_sec = ?, sound_id = ?,
+  prevent_turn_off = ?, wake_up_check = ?
+WHERE id = ?;
 
 updateAlarmEnabled:
 UPDATE alarm SET enabled = ? WHERE id = ?;
 
 deleteAlarm:
 DELETE FROM alarm WHERE id = ?;
+
+selectLastInsertId:
+SELECT last_insert_rowid();

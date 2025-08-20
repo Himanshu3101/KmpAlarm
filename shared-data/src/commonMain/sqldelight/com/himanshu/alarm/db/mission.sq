@@ -26,5 +26,5 @@ WHERE am.alarm_id = ?;
 linkMissionToAlarm:
 INSERT OR REPLACE INTO alarm_mission(alarm_id, mission_id, required) VALUES (?,?,?);
 
-unLinkMissionFromAlarm:
+unlinkMissionFromAlarm:
 DELETE FROM alarm_mission WHERE alarm_id = ? AND mission_id = ?;

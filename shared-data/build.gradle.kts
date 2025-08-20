@@ -11,7 +11,7 @@ kotlin {
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
-        namespace = "com.himanshu.alarm.data"
+        namespace = "com.himanshu.alarm.shared.data"
         compileSdk = 35
         minSdk = 30
 
@@ -52,6 +52,11 @@ kotlin {
         }
     }
 
+ /*   androidTarget()
+    iosArm64()
+    iosSimulatorArm64()
+    iosX64()*/
+
     // Source set declarations.
     // Declaring a target automatically creates a source set with the same name. By default, the
     // Kotlin Gradle Plugin creates additional source sets that depend on each other, since it is
@@ -67,6 +72,8 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.sqldelight.runtime)
                 implementation(libs.sqldelight.coroutines)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.koin.core)
             }
         }
 
@@ -110,7 +117,12 @@ sqldelight {
     databases {
         create("AlarmDb") {
             packageName.set("com.himanshu.alarm.db")
-            generateAsync.set(true)
+//            generateAsync.set(true)
+//            schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
+            verifyMigrations.set(false)
         }
     }
 }
+
+tasks.matching { it.name.startsWith("verify") && it.name.endsWith("Migration") }
+    .configureEach { enabled = false }

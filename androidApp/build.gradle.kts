@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.himanshu.alarm"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.himanshu.alarm"
@@ -42,6 +42,8 @@ android {
 dependencies {
 
     implementation(project(":shared-ui"))   // <-- wire UI module
+    implementation(project(":shared-data"))    // <-- add this so MainActivity can see DatabaseDriverFactory & dataModule
+    implementation(libs.koin.core)             // <-- to call startKoin / GlobalContext
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

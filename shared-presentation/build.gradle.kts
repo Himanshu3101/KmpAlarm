@@ -9,7 +9,7 @@ kotlin {
     // which platforms this KMP module supports.
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
-        namespace = "com.himanshu.alarm.presentation"
+        namespace = "com.himanshu.alarm.shared.presentation"
         compileSdk = 35
         minSdk = 30
 
