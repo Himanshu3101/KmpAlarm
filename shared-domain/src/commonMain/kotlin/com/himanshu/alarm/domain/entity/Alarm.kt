@@ -5,7 +5,7 @@ import kotlinx.datetime.LocalTime
 
 enum class MissionType { MATH, QR, SHAKE, STEPS, MEMORY, TYPING }
 enum class MissionDifficulty { EASY, MEDIUM, HARD }
-
+//entities
 data class AlarmId(val value: Long)
 data class SoundId(val value: Long)
 data class MissionId(val value: Long)
