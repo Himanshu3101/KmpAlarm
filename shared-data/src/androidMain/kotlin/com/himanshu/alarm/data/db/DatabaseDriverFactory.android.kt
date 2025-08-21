@@ -8,8 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 actual class DatabaseDriverFactory(private val context: Context) {
-    @Suppress("RedundantSuspendModifier")
-    actual suspend fun createDriver(dbName:String) : SqlDriver = withContext(Dispatchers.IO) {
+    actual fun createDriver(dbName:String) : SqlDriver =
         AndroidSqliteDriver(AlarmDb.Schema, context, dbName)
-    }
 }

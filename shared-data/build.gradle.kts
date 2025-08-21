@@ -118,7 +118,7 @@ sqldelight {
         create("AlarmDb") {
             packageName.set("com.himanshu.alarm.db")
 //            generateAsync.set(true)
-//            schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
+            schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
             verifyMigrations.set(false)
         }
     }

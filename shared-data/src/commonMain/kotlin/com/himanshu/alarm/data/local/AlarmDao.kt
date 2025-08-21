@@ -53,14 +53,12 @@ class AlarmDao(
             allow_snooze = fields.allow_snooze,
             snooze_minutes = fields.snooze_minutes,
             volume = fields.volume,
-            gradual_increase_sec = fields.gradualIncreaseSec.toLong(),
+            gradual_increase_sec = fields.gradual_increase_sec,
             sound_id = fields.sound_id,
             prevent_turn_off = fields.prevent_turn_off,
             wake_up_check = fields.wake_up_check
-        ).execute() // <-- no result
-
-        val newId = db.alarmQueries.selectLastInsertId().executeAsOne()
-        return newId
+        )
+        return db.alarmQueries.selectLastInsertId().executeAsOne()
     }
 
     suspend fun updateEnabled(id: Long, enabled: Boolean) =

@@ -5,7 +5,7 @@ import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.himanshu.alarm.db.AlarmDb
 
 actual class DatabaseDriverFactory {
-    actual suspend fun createDriver(dbName: String): SqlDriver{
+    actual fun createDriver(dbName: String): SqlDriver{
         return NativeSqliteDriver(AlarmDb.Schema, dbName)
     }
 }
