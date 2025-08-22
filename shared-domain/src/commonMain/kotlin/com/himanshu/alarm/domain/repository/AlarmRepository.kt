@@ -16,6 +16,9 @@ interface AlarmRepository {
     suspend fun linkMission(alarmId: AlarmId, missionId: MissionId, required: Boolean)
     suspend fun unlinkMission(alarmId: AlarmId, missionId: MissionId)
     suspend fun missionFor(alarmId: AlarmId): List<AlarmMissionLink>
+    suspend fun addDummy() {
+        TODO("Not yet implemented")
+    }
 }
 
 //Later, :shared-data will implement these using the SQLDelight-generated APIs.

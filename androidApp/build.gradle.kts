@@ -42,6 +42,7 @@ android {
 dependencies {
 
     implementation(project(":shared-ui"))   // <-- wire UI module
+    implementation(project(":shared-presentation"))
     implementation(project(":shared-data"))    // <-- add this so MainActivity can see DatabaseDriverFactory & dataModule
     implementation(libs.koin.core)             // <-- to call startKoin / GlobalContext
 

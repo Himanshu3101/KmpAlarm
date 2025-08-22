@@ -59,8 +59,9 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
-                // Add KMP dependencies here
-                implementation(project(":shared-domain"))
+                // Add KMP dependencies here - Its not working
+//                implementation(project(":shared-domain"))
+                api(project(":shared-domain")) // expose domain models to dependents
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.koin.core)
             }
