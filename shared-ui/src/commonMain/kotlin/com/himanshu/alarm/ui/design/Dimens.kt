@@ -30,6 +30,7 @@ val LocalTypeScale = staticCompositionLocalOf { TypeScale() }
 
 object AlarmTheme{
     val spacing : Spacing @Composable get() = LocalSpacing.current
+    val type: TypeScale @Composable get() = LocalTypeScale.current
     val typeScale : TypeScale @Composable get() = LocalTypeScale.current
 }
 

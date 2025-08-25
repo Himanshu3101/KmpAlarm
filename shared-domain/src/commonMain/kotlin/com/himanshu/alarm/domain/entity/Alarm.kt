@@ -15,7 +15,8 @@ data class SnoreId(val value: Long)
 data class Alarm(
     val id: AlarmId,
     val label: String,
-    val time: LocalTime,             // local alarm time
+    val timeH: Int,//LocalTime,             // local alarm time
+    val timeM: Int,//LocalTime,
     val nextTrigger: Instant?,       // computed, cached for fast resume
     val enabled: Boolean,
     val repeatMask: Int,            // local alarm time - Efficient cross-platform bitmask for days of week (0=Sun..6=Sat). No joins needed to show “repeats M-F”.
