@@ -7,16 +7,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.himanshu.alarm.ui.theme.KmpAlarmTheme
+import androidx.compose.runtime.getValue
 
 
 import com.himanshu.alarm.data.db.DatabaseDriverFactory
 import com.himanshu.alarm.data.di.dataModule
 import com.himanshu.alarm.presentation.alarm.AlarmListViewModel
 import com.himanshu.alarm.presentation.di.presentationModule
-import com.himanshu.alarm.ui.AlarmListScreen
+import com.himanshu.alarm.ui.AlarmListRoot
 
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
@@ -41,10 +39,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             // Obtain the VM from Koin and keep it for the composition lifetime
             val vm = remember { GlobalContext.get().get<AlarmListViewModel>() }
-            val state by vm.state.collectAsState()
+            // EITHER use 'by' (needs getValue import)...
+//            val state by vm.state.collectAsState()
 
-            AlarmListScreen(
-                state = state,
+            // ...or without 'by':
+             val state = vm.state.collectAsState()
+
+            AlarmListRoot (
+//                state = state,
+                 state = state.value,
                 onIntent = vm::onIntent
             )
         }

@@ -7,8 +7,8 @@ private fun localTime(h: Long,m:Long) = LocalTime(hour = h.toInt(),minute = m.to
 
 fun Alarm.toDbFields(): AlarmDbFields = AlarmDbFields(
     label = label,
-    time_h = time.hour,
-    time_m = time.minute,
+    time_h = timeH,
+    time_m = timeM,
     next_trigger = nextTrigger?.epochSeconds,
     enabled = if (enabled) 1L else 0L,
     repeat_mask = repeatMask.toLong(),
@@ -55,7 +55,8 @@ fun mapAlarmRow(
 ): Alarm = Alarm(
     id = AlarmId(id),
     label = label,
-    time = localTime(time_h, time_m),
+    timeH = time_h.toInt(),
+    timeM = time_m.toInt(),
     nextTrigger = next_trigger?.let { Instant.fromEpochSeconds(it) },
     enabled = enabled == 1L,
     repeatMask = repeat_mask.toInt(),
